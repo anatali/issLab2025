@@ -36,24 +36,9 @@ class Productservice ( name: String, scope: CoroutineScope, isconfined: Boolean=
 		
 		//	lateinit var eurekaClient : com.netflix.discovery.DiscoveryClient 
 		
-		//REGISTER	 
+		   
 		 
-		//fun register(){
-		//	CommUtils.ckeckEureka( );
-		//// 	  System.setProperty("eureka.client.props", "main/java/eureka-client.properties");
-		//// 	  System.setProperty("eureka.leaseRenewalIntervalInSeconds", "60");
-		//// 	  System.setProperty("eureka.instance.nonSecurePort", "8111");
-		////	  CommUtils.outgreen("props:"+ System.getProperty("eureka.client.props"));
-		////	  CommUtils.outgreen("port :"+ System.getProperty("eureka.instance.nonSecurePort"));
-		////	  CommUtils.outgreen("dt   :"+ System.getProperty("eureka.leaseRenewalIntervalInSeconds"));
-		//    val eurekaOn = CommUtils.getEnvvarValue("EUREKA_CLIENT_SERVICEURL_DEFAULTZONE")
-		//    val myIp     = CommUtils.getMyPublicip()
-		//    CommUtils.outblue("eurekaOn=$eurekaOn myIp=$myIp ")
-		////	  if( eurekaOn != null) 
-		//	//val discoveryclient = main.java.EurekaServiceConfig.myRegister( main.java.EurekaServiceConfig() )
-		//	val discoveryclient = CommUtils.registerService( main.java.EurekaServiceConfig() )
-		//	CommUtils.outblue("discoveryclient=$discoveryclient ")	 
-		//}
+		 
 		 
 		 
 		
@@ -61,19 +46,18 @@ class Productservice ( name: String, scope: CoroutineScope, isconfined: Boolean=
 				state("s0") { //this:State
 					action { //it:State
 						 val Info = "$name | STARTS delegating createProduct to exec_createdelete"  
-						delay(1500) 
-						CommUtils.outgreen("$name | register ...................... ")
+						CommUtils.outgreen("$name | wait for a while ... ")
+						delay(2500) 
+						CommUtils.outgreen("$name | registering ...................... ")
 						   
 						        	logger.info(  sysUtil.logStr(name,Info,"categ0")  )
 						        	val b = CommUtils.ckeckEureka( )
-						        	CommUtils.outgreen("$name | register $b ")  
-						        	//register()
-						        	//eurekaClient = 
+						        	CommUtils.outgreen("$name | ckeckEureka: $b ")  
+						 
 						        	CommUtils.registerService( main.java.EurekaServiceConfig() );
-						        	//val discoveryclient = CommUtils.registerService( main.java.EurekaServiceConfig() )
 						CommUtils.outgreen("$name | STARTSSSSSSSSSSSSSSSSSSSSS")
-						delegate("createProduct", "exec_createdelete") 
-						delegate("deleteProduct", "exec_createdelete") 
+						delegate("createProduct", "execcreatedelete") 
+						delegate("deleteProduct", "execcreatedelete") 
 						CommUtils.outblue(Info)
 						//genTimer( actor, state )
 					}

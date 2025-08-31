@@ -1,7 +1,6 @@
 %====================================================================================
 % cargoserviceqak description   
 %====================================================================================
-mqttBroker("localhost", "1883", "cargoevents").
 request( createProduct, product(String) ).
 reply( createdProduct, productid(ID) ).  %%for createProduct
 request( deleteProduct, product(ID) ).
@@ -15,8 +14,8 @@ event( cargoevent, cargoevent(INFO) ).
 event( alarm, alarm(X) ).
 %====================================================================================
 context(ctxcargoservice, "localhost",  "TCP", "8111").
- qactor( exec_createdelete, ctxcargoservice, "it.unibo.exec_createdelete.Exec_createdelete").
- static(exec_createdelete).
+ qactor( execcreatedelete, ctxcargoservice, "it.unibo.execcreatedelete.Execcreatedelete").
+ static(execcreatedelete).
   qactor( productservice, ctxcargoservice, "it.unibo.productservice.Productservice").
  static(productservice).
   qactor( exec_get, ctxcargoservice, "it.unibo.exec_get.Exec_get").

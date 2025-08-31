@@ -1,0 +1,24 @@
+services:
+ 
+  cargoserviceqak:
+    #build: ./ 
+    container_name: cargoserviceqak 
+    image: cargoserviceqak:1.0
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:8761/eureka/
+      - MONGO_HOST=mongodb 
+    ports:
+      - 8111:8111/tcp
+      - 8111:8111/udp
+    networks:
+      - iss-network
+
+
+networks:
+    iss-network:
+       external: true
+
+## docker-compose -f cargoserviceqak.yaml  up
+## yamls> docker network ls
+## docker network create iss-network
+## docker network rm xxx

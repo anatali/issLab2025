@@ -3,11 +3,17 @@ package main.java.caller;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+import org.eclipse.californium.core.CoapClient;
+import org.eclipse.californium.core.CoapHandler;
+import org.eclipse.californium.core.CoapObserveRelation;
+import org.eclipse.californium.core.CoapResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import it.unibo.kactor.sysUtil;
+import unibo.basicomm23.coap.CoapConnection;
 import unibo.basicomm23.interfaces.IApplMessage;
+import unibo.basicomm23.interfaces.Interaction;
 import unibo.basicomm23.msg.ProtocolType;
 import unibo.basicomm23.utils.CommUtils;
  
@@ -63,6 +69,31 @@ public class ProductServiceCallerCoap extends AbstractCaller{
         CommUtils.outblue(name + " | deleteProduct answer=" + answer );
 	}
 	
+	/*
+	protected void addObservation(Interaction conn) {
+		//CoapClient client = new CoapClient("coap://localhost:8919/ctxqakms025/ms0" );  
+		
+		CoapConnection coapConn = (CoapConnection)conn;
+		CoapClient client = coapConn.getClient();
+		
+	    CommUtils.outblue("callerCoap addObservation client"  );
+		CoapObserveRelation relation = client.observe(
+				new CoapHandler() {
+					@Override public void onLoad(CoapResponse response) {
+						String content = response.getResponseText();
+						CommUtils.outgreen("ActorObserver | value=" + content );
+					}					
+					@Override public void onError() {
+						CommUtils.outred("OBSERVING FAILED  ");
+					}
+				});	
+		
+		CommUtils.delay(3000);
+		relation.proactiveCancel();
+		CommUtils.outblue("ActorObserver | ENDS"   );
+		System.exit(0);
+	}
+*/
 	 
 	public static void main(String[] args) {
 		ProductServiceCallerCoap caller = 

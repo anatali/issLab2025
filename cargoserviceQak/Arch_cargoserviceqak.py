@@ -26,12 +26,12 @@ with Diagram('cargoserviceqakArch', show=False, outformat='png', graph_attr=grap
      sys = Custom('','./qakicons/system.png')
 ### see https://renenyffenegger.ch/notes/tools/Graphviz/attributes/label/HTML-like/index
      with Cluster('ctxcargoservice', graph_attr=nodeattr):
-          exec_createdelete=Custom('exec_createdelete','./qakicons/symActorWithobjSmall.png')
+          execcreatedelete=Custom('execcreatedelete','./qakicons/symActorWithobjSmall.png')
           productservice=Custom('productservice','./qakicons/symActorWithobjSmall.png')
           exec_get=Custom('exec_get','./qakicons/symActorDynamicWithobj.png')
           exec_getall=Custom('exec_getall','./qakicons/symActorDynamicWithobj.png')
-     exec_createdelete >> Edge( label='cargoevent', **eventedgeattr, decorate='true', fontcolor='red') >> sys
+     execcreatedelete >> Edge( label='cargoevent', **eventedgeattr, decorate='true', fontcolor='red') >> sys
      productservice >> Edge(color='magenta', style='dotted', decorate='true', label='<currentMsg &nbsp; >',  fontcolor='black') >> exec_getall
-     productservice >> Edge(color='magenta', style='solid', decorate='true', label='<createProduct<font color="darkgreen"> createdProduct</font> &nbsp; deleteProduct<font color="darkgreen"> deletedProduct</font> &nbsp; >',  fontcolor='magenta') >> exec_createdelete
+     productservice >> Edge(color='magenta', style='solid', decorate='true', label='<createProduct<font color="darkgreen"> createdProduct</font> &nbsp; deleteProduct<font color="darkgreen"> deletedProduct</font> &nbsp; >',  fontcolor='magenta') >> execcreatedelete
      productservice >> Edge(color='magenta', style='dotted', decorate='true', label='<currentMsg &nbsp; >',  fontcolor='black') >> exec_get
 diag

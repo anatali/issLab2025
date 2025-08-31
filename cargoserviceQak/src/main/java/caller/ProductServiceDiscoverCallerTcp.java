@@ -25,14 +25,17 @@ public class ProductServiceDiscoverCallerTcp  {
 	
     
 	protected String[] discoverProductService(String serviceName) {
- 		CommUtils.ckeckEureka( );
+ 		boolean result = CommUtils.ckeckEureka( );
     	//eurekaClient = CommUtils.createEurekaClient( new EurekaServiceConfig()  ); 
 		//DISCOVER
-    	CommUtils.outyellow(" ---------------------------- discoverService ");
- 		String[]  hostPort = CommUtils.discoverService(  "ctxcargoservice" ); 
+    	CommUtils.outyellow(" result = " + result);
+    	if( ! result ) return null;
+ 		
+    	CommUtils.outyellow(" ---------------------------- discoverService " + result);
+    	String[]  hostPort = CommUtils.discoverService(  "ctxcargoservice" ); 
 		CommUtils.outyellow(" ---------------------------- discoverService hostPort=" + hostPort);
  		if( hostPort != null ) {
-			CommUtils.outcyan("connectService hostPort:     " + hostPort);
+			CommUtils.outcyan("connectService hostPort:     " + hostPort[0] +":"+hostPort[1]);
 			return hostPort;
 		}else {
 			CommUtils.outred("Discoverable " + serviceName + " not found");
@@ -66,7 +69,7 @@ public class ProductServiceDiscoverCallerTcp  {
 		try {
 			connectToService(hostPort);
 			
-			Product p1 = new Product(17, "p17", 170);
+			Product p1 = new Product(21, "p21", 210); 
 			String p1Json = CommUtils.toPrologStr(p1.toString(),true);
  			CommUtils.outcyan("doJob p1Json:" + p1Json);
 			String pp = "product( JSON )".replace("JSON", p1Json);
@@ -95,7 +98,7 @@ public class ProductServiceDiscoverCallerTcp  {
 		String[]  hostPort = discoverProductService("ctxcargoservice");
 		if( hostPort != null ) {
             useService(hostPort);
-            getProduct(2);
+            getProduct(17);
             shutDownTheClient();
 //    		getAllProducts();
 		}
@@ -120,10 +123,6 @@ public class ProductServiceDiscoverCallerTcp  {
         
         //curl -X DELETE "http://localhost:8761/eureka/apps/productservice/79.22.134.219"
      }
-
-	
-	
-	
 
 	public static void main(String[] args) throws Exception  {
 		//TCP call requires knowledge at system level!
