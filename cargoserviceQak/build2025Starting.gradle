@@ -154,9 +154,9 @@ task dovesiamo {
 
 distributions {
     main {
-        distributionBaseName = 'cargoservice'
+        distributionBaseName = 'cargoserviceqak'
         contents { 
-             from './cargoservice.pl'
+             from './cargoserviceqak.pl'
              from './sysRules.pl'
              from './facadeConfig.json'
         }

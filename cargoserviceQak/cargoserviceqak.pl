@@ -1,5 +1,5 @@
 %====================================================================================
-% cargoservice description   
+% cargoserviceqak description   
 %====================================================================================
 mqttBroker("localhost", "1883", "cargoevents").
 request( createProduct, product(String) ).
@@ -15,13 +15,11 @@ event( cargoevent, cargoevent(INFO) ).
 event( alarm, alarm(X) ).
 %====================================================================================
 context(ctxcargoservice, "localhost",  "TCP", "8111").
- qactor( createexecutor, ctxcargoservice, "it.unibo.createexecutor.Createexecutor").
- static(createexecutor).
+ qactor( exec_createdelete, ctxcargoservice, "it.unibo.exec_createdelete.Exec_createdelete").
+ static(exec_createdelete).
   qactor( productservice, ctxcargoservice, "it.unibo.productservice.Productservice").
  static(productservice).
   qactor( exec_get, ctxcargoservice, "it.unibo.exec_get.Exec_get").
 dynamic(exec_get). %%Oct2023 
   qactor( exec_getall, ctxcargoservice, "it.unibo.exec_getall.Exec_getall").
 dynamic(exec_getall). %%Oct2023 
-  qactor( guiworker, ctxcargoservice, "it.unibo.guiworker.Guiworker").
- static(guiworker).
