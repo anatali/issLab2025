@@ -1,0 +1,71 @@
+<configuration debug="false">
+  
+    <!-- Appender per scrivere i log in un file -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/app_basicrobot26usage.log</file>
+        <append>true</append>
+        <encoder>
+             <!-- <pattern>%d{yyyy-MM-dd HH:mm:ss} - %msg%n</pattern> -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender> 
+
+     <!-- Console appender -->
+	<!-- 
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+	-->
+    
+    <!--
+    <appender name="SECONDARY_APPENDER" class="ch.qos.logback.core.FileAppender">
+        <file>logs/fallback.log</file>
+        <encoder> 
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    -->
+    
+    <!-- Appender per inviare i log a Logstash 
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <remotehost>192.168.1.132</remotehost> 
+        <port>5044</port> 
+        <reconnectionDelay>2000</reconnectionDelay>  
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+        <fallbackAppender ref="SECONDARY_APPENDER" />
+    </appender>   
+    -->
+    
+    <!--  
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>localhost:5044</destination> 
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+     </appender>   
+    -->
+       
+	<!--  
+    <appender name="ELASTIC" class="net.logstash.logback.appender.LogstashTcpSocketAppender">          
+        <destination>localhost:5044</destination> 
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">             
+        </encoder>
+    </appender>
+	--> 
+ 
+    <!-- Configura il logger per org.eclipse.californium -->
+    <logger name="org.eclipse.californium" level="OFF" />
+    
+    <!-- UTILE PER VEDERE AZIONI DI LOG -->
+    <!-- <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" /> -->
+    
+    <root level="info">      
+        <appender-ref ref="FILE" />
+         <!-- 
+         <appender-ref ref="SECONDARY_APPENDER" />
+      	 <appender-ref ref="STDOUT" /> 
+         <appender-ref ref="LOGSTASH" />  
+        -->
+    </root>
+ 
+</configuration>		

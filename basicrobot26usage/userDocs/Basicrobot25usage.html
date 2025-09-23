@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />   
+  <title>Basicrobot usage</title>
+  <link rel="stylesheet" href="./style/style.css">
+</head>
+<body>
+ <div>    
+  <h1>Basicrobot26usage</h1>   
+  
+  <h3>Video</h3>   
+  
+<a href="https://unibo.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=3d572f40-332a-43d0-bae4-b36000f5085e" target="_blank">
+	basicrobo26usage su panopto</a> 
+  
+  <h3>Per attivare il basicrobot</h3>
+  
+  <p>Nella directory del <b>progetto basicrobot25usage</b>, eseguire:
+  
+	<table style="width:100%">
+ 	<tr>
+	<td> <pre>docker-compose -f basicrobot26.yaml  up</pre></td>
+	<td>Attivazione dei servizi necessari (Mosquiito,  etc,),
+		del virtual envirnoment (<b>wnev</b>), 
+		del basicrobot e della rappresentazione della 'immagine mentale dell'ambiente'</td> 		
+	 </tr>
+	</table>
+ 
+  
+   </p>
+   
+  <h3>localhots:8075</h3>
+  <p>
+  Aprendo un browser web all'indirizzo <b>localhost:8075</b> si dovrebbe vedere la seguente schermata
+  </p>
+
+  <img src="./img/basicrobot25guialone.jpg" alt="basicrobot25guialone" width="800"/>
+
+  
+  <h3>bascirobot25 come servizio</h3>
+  
+  <p>
+  Il basicrobot25 si presenta come un servizio: 
+  
+  <ul>
+  <li>distribuito come innagine docker  </li>
+  <li>accessibile da programmi-client sulla porta <tt>8075</tt> mediante i protocolli <b>TCP</b> e <b>CoAP</b></li>
+  <li>accessibile tramite <b>MQTT</b> pubblicando messaggi sulla topic <tt>unibo/qak/basicrobot</tt></li>
+  <li>configurabile attraverso due file json  (<tt>basicrobotConfig.json</tt>  e  <tt>>basicrobotParams.json</tt>)</li>
+  </ul>
+
+   
+  <img src="./img/basicrobot25asService.jpg" alt="basicrobot25asService" width="800"/>
+  
+  </p><p>
+   Questa versione <b>non usa Eureka</b>  per la resgitrazion e il discovery dei servizi.	
+
+    
+   </p>	
+
+    
+  <h3>Esempi-base di uso </h3>
+  
+  <table style="width:100%">
+	<tr>
+	<th style="width:30%">Program</th>
+	<th>Description</th> 		
+   </tr>
+   
+
+   
+   <tr>
+     <td>
+    	<a href="../src/main/java/caller/BasicrobotCallerCoap.java" target="code">main.java.BasicroboCallerCoap.java</a>
+    </td>
+     <td><p>Esempio di interazione diretta via <b>CoAP</b></p>	 </td>
+   </tr>
+
+   <tr>
+      <td>
+     	<a href="../src/main/java/caller/BasicrobotCallerMqtt.java" target="code">main.java.BasicroboCallerMqtt.java</a>
+     </td>
+      <td><p>Esempio di interazione diretta via <b>Mqtt</b></p>
+   	<p>Il programma funge anche da obseerver delle informazioni emesse dal basicrobot sulla topic ...</p>
+    </td>	 
+    </tr>
+
+   </table>
+   
+   <h3>Esempi di uso evoluto</h3>
+
+   <table style="width:100%">
+   <tr>
+   <th style="width:30%">Program</th>
+   <th>Description</th> 		
+    </tr>   
+   
+   <tr>
+    <td>
+   	<a href="../src/main/java/BasicRobotMovesHelper.java" target="code">main.java.BasicRobotMovesHelper.java</a>
+   </td>
+    <td><p>Classe che contiene la defnizione di alcune macro-mosse per il basicrobot, tra cui:
+		<i>
+		<ul>
+			<li>Interaction connectToService(String host, String port) </li>
+			<li>void showtrobotPos()</li>
+			<li>boolean nearToHome()</li>
+			<li>boolean checkRobotAtHome()</li>
+			<li>void moveToHome()</li>
+			<li>void tuneAtHome()</li>
+			<li>boolean doPLan(String plan) </li>
+			<li>void move35() </li>
+			<li>void tf25()  </li>
+			<li>void boundary()  </li>
+			<li>String buildPlan(int x1, int y1, int x2, int y2)</li>
+		</ul>
+		</i>
+		
+		
+	</td></p>
+   </tr>
+
+   
+    <tr>
+    <td>
+		<a href="../src/main/java/caller/BasicroboCallerTcpWithHelper.java" target="code">main.java.caller.BasicroboCallerTcpWithHelper.java</a>
+	</td>
+    <td><p>Programma che presenta un menu di azioni eseguibili da parte del <i>basicrobot</i>,
+		ciascuna realizzata tramite le macro-mosse definite in <i><b>BasicRobotMovesHelper</b></i>.
+		</p>
+		<p>Il programma si connette al robot tramite <b>protocollo TCP</b>, conoscendo il suo indirizzo IP.
+		</p>
+	</td>
+   </tr>
+   
+
+   
+   </table>
+  
+
+  
+  <hr>
+ </div>
+
+</body>
+</html>

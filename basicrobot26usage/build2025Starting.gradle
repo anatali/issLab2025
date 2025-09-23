@@ -1,0 +1,172 @@
+/*
+================================================================================
+build2025Starting.gradle
+GENERATED ONLY ONCE
+================================================================================
+*/
+plugins {
+    // Apply the application plugin to add support for building a CLI application in Java.
+    id 'application'  //include java
+    id 'eclipse'
+
+    // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
+    id "org.jetbrains.kotlin.jvm" version "1.9.22"
+}
+
+version '1.0'
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+}
+kotlin {
+  jvmToolchain {
+    languageVersion.set(JavaLanguageVersion.of("17"))
+  }
+}
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+    flatDir {   dirs '../unibolibs'	 }
+}
+
+dependencies {
+    // Align versions of all Kotlin components
+    implementation platform('org.jetbrains.kotlin:kotlin-bom')
+
+    // Use the Kotlin JDK 8 standard library.
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+
+    // This dependency is used by the application.
+    implementation 'com.google.guava:guava:30.1.1-jre'
+
+    // Use the Kotlin test library.
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+
+    // Use the Kotlin JUnit integration.
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:1.9.22"
+
+    /* COROUTINES ******************************************************************************* */
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: "$kotlinVersion"   //, ext: 'pom'
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core-jvm', version: "$kotlinVersion"
+
+	//SOCKET.IO (for WEnv)
+    implementation group: 'javax.websocket', name: 'javax.websocket-api', version: '1.1'
+    //javax.websocket api is only the specification
+    implementation group: 'org.glassfish.tyrus.bundles', name: 'tyrus-standalone-client', version: '1.9'
+
+	//HTTP
+    implementation 'org.apache.httpcomponents:httpclient:4.5'
+
+    /*  MQTT *******************************************************************************  */
+    // https://mvnrepository.com/artifact/org.eclipse.paho/org.eclipse.paho.client.mqttv3
+    implementation group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: '1.2.5'
+
+    /* JSON ********************************************************************************* */
+    // https://mvnrepository.com/artifact/org.json/json
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+    implementation group: 'org.json', name: 'json', version: '20180130'
+
+    /* COAP ********************************************************************************* */
+    // https://mvnrepository.com/artifact/org.eclipse.californium/californium-core
+    implementation group: 'org.eclipse.californium', name: 'californium-core', version: '3.5.0'
+    // https://mvnrepository.com/artifact/org.eclipse.californium/californium-proxy2
+    implementation group: 'org.eclipse.californium', name: 'californium-proxy2', version: '3.5.0'
+
+	//OkHttp library for websockets with Kotlin
+	//implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.14.0'    
+	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.3' 
+	// https://mvnrepository.com/artifact/com.squareup.okhttp3/mockwebserver
+	testImplementation group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '4.9.3'
+
+    /* LOG4J ***************************************************************************** */    
+   implementation 'ch.qos.logback:logback-classic:1.2.11'  //vs.1.5.7     1.2.11 (app1.log ok)     1.4.11
+   
+   /* Elasticsearch   */
+    // https://mvnrepository.com/artifact/net.logstash.logback/logstash-logback-encoder
+	implementation("net.logstash.logback:logstash-logback-encoder:7.3")  //7.3 permette di usare 1.2.11
+
+
+    /* HTTP ******************************************************************************** */
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+
+
+    /* UNIBO *********************************************************************************/
+    implementation name: 'uniboInterfaces'
+    implementation name: '2p301'
+	implementation name: 'unibo.qakactor23-5.0'
+    implementation name: 'unibo.basicomm23-1.0' 
+}
+	
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+    test{
+        java {
+            srcDirs += ['src/test/java']
+        }    
+        resources {
+            srcDirs = ['src/test/resources']
+        }
+    }
+ } 
+
+eclipse {
+    classpath {
+        sourceSets -= [sourceSets.main, sourceSets.test]	
+    }	
+ }
+
+
+application {
+    //Define the main class for the application.
+    mainClassName    = 'TODO'
+}
+ 
+ jar {
+    println("building jar")
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)  //per via di locgback.xml quando si usa spring
+    from sourceSets.main.allSource
+    from('./') {
+      include '*.pl'
+      include '*.json'
+    }
+    manifest {
+        attributes 'Main-Class': "$mainClassName"
+    }
+}
+
+task dovesiamo {
+    println("projectDir= $projectDir")  
+    println("buildDir  = $buildDir")    
+}
+
+distributions {
+    main {
+        distributionBaseName = 'basicrobot26usage'
+        contents { 
+             from './basicrobot26usage.pl'
+             from './sysRules.pl'
+             from './facadeConfig.json'
+        }
+    }
+} 
+
+task run0(type: JavaExec) {
+    group = "Execution"
+    description = "Run the main class with JavaExecTask"
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'TODO'
+}
+

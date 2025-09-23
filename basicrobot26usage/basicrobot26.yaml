@@ -1,0 +1,90 @@
+services:
+
+## -------------------------------------------------------------
+## Useful services
+## -------------------------------------------------------------
+
+  mosquitto:
+    image: eclipse-mosquitto:1.6.15
+    container_name: mosquitto
+    environment:
+      - MQTT_ALLOW_ANONYMOUS=true   # Permette connessioni anonime
+    ports:
+      - 1883:1883
+      - 9001:9001                   # Optional:Utilizzata per WebSocket MQTT
+    networks:
+      - iss-network
+
+  mongodb:
+    image: mongo:6.0.4
+    container_name: mongodb  
+    mem_limit: 512m
+    environment:
+      - MONGO_INITDB_DATABASE=cargodb # Nome del database da inizializzare
+    ports:
+      - "27017:27017"
+    command: mongod
+    networks:
+      - iss-network
+
+
+## -------------------------------------------------------------
+## Basicrobot services
+## -------------------------------------------------------------
+
+  wenv:
+    container_name: wenv
+    image: docker.io/natbodocker/virtualrobotdisi25:2.2
+    #image: virtualrobotdisi25:2.3
+    ports:
+      - 8090:8090 
+      - 8091:8091/tcp
+      - 8091:8091/udp
+    networks:
+      - iss-network
+
+  robotoutgui25:
+    container_name: robotoutgui25
+    image: docker.io/natbodocker/robotoutgui25:1.0
+    #image: robotoutgui25:1.0
+    ports:
+      - 8085:8085/tcp
+    networks:
+      - iss-network
+  
+  basicrobot25: 
+    container_name: basicrobot25
+    image: docker.io/natbodocker/basicrobot25:1.0
+    #image: basicrobot25:1.0
+    mem_limit: 512m 
+    ports:
+      - "8020:8020/tcp"
+      - "8020:8020/udp"
+    environment:
+      - VIRTUAL_ENV=wenv                         #Used by uniborobots.robotSupport.create
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:8761/eureka/
+      - SERVICE_HOST=localhost      #basicrobot25 per app che usano basicrobot in docker  192.168.1.132
+      - SERVICE_IP=localhost        #1 192.168.1.132
+      - MQTTBROKER=mosquitto
+    depends_on:
+      - wenv  
+      - robotoutgui25
+    networks:
+      - iss-network
+
+networks:
+  iss-network:
+    external: true
+
+ 
+
+## yamls> docker network ls
+## docker network create iss-network
+## docker network rm xxx
+
+## -------------------------------------------------------------
+## TODO See https://docs.docker.com/compose/startup-order/
+## -------------------------------------------------------------
+## docker-compose -f basicrobot26.yaml  up
+ 
+
