@@ -1,0 +1,179 @@
+ 
+body {
+			font-family: 'Latin Modern Roman', serif;
+			margin-left: 30px;
+			margin-right: 30px;
+			font-size: 0.8em;
+}
+ 
+ 
+ 
+		a:link{
+			text-decoration: underline;
+			color: blue;
+			font-color: #ffccff;
+			font-size: 100%;
+		}
+
+
+		hr {
+			clear: both;
+			height: 1px;
+			color: #242424;
+			background-color: transparent;
+		}
+
+
+div.top {
+	width: 80%;
+}
+		
+		div.bottom {
+			width: 60%;
+			background-color: lightyellow;
+			border-style: solid;
+			margin-top: 3em;
+			margin-left:0.5em;
+		}
+
+		#i {
+			color: #ff1010;
+		}
+
+		tt {
+			font-family: "Arial";
+			font-size: 90%;
+			color: #006600;
+		}
+
+		em {
+			font-family: "Arial";
+			font-size: 110%;
+			font-weight: bold;
+			border-style: solid;
+			border-color: #abe876;
+			color: #1632cc;
+		}
+
+		bc {
+			font-family: "Arial";
+			font-size: 90%;
+			font-weight: bold;
+			color: #990000;
+			background-color: #fcf8c7;
+		}
+
+		ks {
+			font-family: "Arial";
+			font-weight: bold;
+			color: #0000CD;
+			font-size: 90%;
+		}
+
+		kc {
+			font-family: "Arial";
+			font-weight: bold;
+			color: #008000;
+			font-size: 90%;
+		}
+
+		pre {
+			font-family: "Arial";
+			font-size: 0.8em;
+			background-color: #f5f5f5;
+			border: 1.5px solid silver;
+			padding: 5px;
+		}
+
+		div.body {
+			font-size: 18px;
+		}
+
+ 		h1 {
+			font-size: 1.5em;
+			background-color: #b2c0ff;
+			padding: 10px;
+		}
+
+		h2 {
+			#background-color: #9ed8ff;
+		font-size: 0.8em;
+		background-color: #e1f4d7 !important;
+		color: rgb(47, 0, 255) !important;
+		margin: 100 !important;
+		border: 1px solid rgb(0, 10, 0) !important;
+		border-radius: 15px !important;
+		padding: 2px !important;
+		}
+
+		h3 {
+			background-color: #e6ccff;
+			font-size: 100%;
+		}
+
+		h4 {
+			background-color: #ccffcc;
+			font-size: 100%;
+			width: 95%;
+			border-radius: 5px;
+			padding: 2px;
+		}
+
+		h5 {
+			background-color: #d5ffb0;
+			font-size: 100%;
+		}
+
+		div.req {
+			background-color: #d9ffb3;
+			font-size: 18px;
+			width: 700px;
+			border: 3px solid green;
+			padding: 15px;
+			margin: 10px;
+		}
+
+		div.remark {
+			background-color: #E3F2FD;
+			border: 1.5px solid #d5f2ed;
+			padding: 15px;
+			margin: 10px;
+			border-radius: 25px;
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+
+		ol,
+		ul,
+		li {
+			margin: 0;
+			margin-left: 10px;
+			padding: 0;
+			padding-bottom: 5px;
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid black;
+		}
+
+		img {
+			border: 1.5px solid #d5f2ed
+		}
+ 
+		div.wrapdesc {
+			width: 90%;
+			margin: auto;
+		}
+
+		div.imagedesc {
+			width: 85%;
+			margin: auto;
+		}
+ 
